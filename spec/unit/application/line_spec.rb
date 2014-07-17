@@ -10,6 +10,7 @@ describe Line do
     expect(frame).to receive(:setSize).with(800,600)
     expect(frame).to receive(:setVisible).with(true)
     expect(frame).to receive(:add).with(any_args)
+    expect(frame).to receive(:addMouseListener).with(any_args)
     expect(frame).to receive(:validate)
     expect(frame).to receive(:repaint)
 

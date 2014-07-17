@@ -2,22 +2,17 @@ require 'spec_helper'
 
 describe 'Rectangle' do
 
-  it 'should draw rectangle on canvas' do
+  it 'should be rendered' do
+
+    rectangle = Rectangle.new(10,10,100,100,Color.red)
     graphics = double("graphics")
-    rectangle = Rectangle.new(10,20,50,60,Color.black)
-    canvas = Canvas.new
-    frame = double("frame")
-    expect(frame).to receive(:javax.swing.JFrame.new).with("Canvas")
-    expect(frame).to receive(:setDefaultCloseOperation).with(javax.swing.JFrame::EXIT_ON_CLOSE)
-    expect(frame).to receive(:setSize).with(800,600)
-    expect(frame).to receive(:setVisible).with(true)
-    expect(frame).to receive(:add).with(self)
-    expect(frame).to receive(:validate)
-    expect(frame).to receive(:repaint)
-    canvas.initialize_frame frame
-    canvas.add rectangle
-    expect(graphics).to receive(:drawLine).with(1,3,2,4)
-    expect(graphics).to receive(:setColor).with(Color.black)
-    canvas.paint(graphics)
+    expect(graphics).to receive(:setColor).with(Color.red).exactly(4).times
+    expect(graphics).to receive(:drawLine).with(10,10,110,10)
+    expect(graphics).to receive(:drawLine).with(110,10,110,110)
+    expect(graphics).to receive(:drawLine).with(110,110,10,110)
+    expect(graphics).to receive(:drawLine).with(10,110,10,10)
+    rectangle.render(graphics)
+
+
   end
 end
