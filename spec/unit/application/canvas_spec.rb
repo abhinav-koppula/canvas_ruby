@@ -2,13 +2,6 @@ require 'spec_helper'
 
 describe 'Canvas' do
 
-  it 'should store the line to canvas' do
-    line = Line.new(1,2,3,4,Color.black)
-    canvas = Canvas.new
-    canvas.add(line)
-    expect(canvas.lines).to eq([line])
-  end
-
   it "foo" do
     frame = double("Frame")
     expect(frame).to receive(:setDefaultCloseOperation).with(javax.swing.JFrame::EXIT_ON_CLOSE)
@@ -18,7 +11,7 @@ describe 'Canvas' do
     expect(frame).to receive(:validate)
     expect(frame).to receive(:repaint)
 
-    allow(javax.swing.JFrame).to receive(:new).and_return(frame)
+    expect(javax.swing.JFrame).to receive(:new).and_return(frame)
 
     Canvas.new
   end

@@ -1,6 +1,6 @@
 puts "#{RUBY_PLATFORM}"
 class Canvas < javax.swing.JPanel
-  attr_reader :lines
+  attr_reader :canvas_objects
   def initialize
     super
     @canvas_objects = []
