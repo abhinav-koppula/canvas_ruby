@@ -15,21 +15,28 @@ describe Button do
     button.render(graphics)
   end
 
+  # it "should check if button is clicked" do
+  #   button = Button.new(10, 20, 250, 350, "click me", Color.red)
+  #   canvas = double("Canvas")
+  #   Canvas.new.add(button)
+  #   javaEvent = double("java.awt.event.MouseEvent")
+  #   allow(javaEvent).to receive(:getX).and_return(125)
+  #   allow(javaEvent).to receive(:getY).and_return(550)
+  #   allow(canvas).to receive(:mouseClicked).and_return(javaEvent)
+  #   expect(Kernel).to receive(:puts).and_return("")
+  #   button.receive_click(canvas.mouseClicked)
+  # end
+
   it "should check if button is clicked" do
     button = Button.new(10, 20, 250, 350, "click me", Color.red)
-    frame = double("Frame")
-    expect(frame).to receive(:setDefaultCloseOperation).with(javax.swing.JFrame::EXIT_ON_CLOSE)
-    expect(frame).to receive(:setSize).with(800,600)
-    expect(frame).to receive(:setVisible).with(true)
-    expect(frame).to receive(:add).with(any_args)
-    expect(frame).to receive(:addMouseListener).with(any_args)
-    expect(frame).to receive(:validate)
-    expect(frame).to receive(:repaint)
-    expect(javax.swing.JFrame).to receive(:new).and_return(frame)
+    canvas = double("Canvas")
     Canvas.new.add(button)
-    javaEvent = double("javaEvent")
-
-    expect(frame).to receive(:mouseClicked).and_return([125,250])
-    expect(button.check_click(frame.mouseClicked(javaEvent))).to eq(true)
+    javaEvent = double("java.awt.event.MouseEvent")
+    allow(javaEvent).to receive(:getX).and_return(125)
+    allow(javaEvent).to receive(:getY).and_return(250)
+    allow(canvas).to receive(:mouseClicked).and_return(javaEvent)
+    expect(Kernel).to receive(:puts).and_return("Clicked on click me")
+    button.receive_click(canvas.mouseClicked)
   end
+
 end

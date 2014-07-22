@@ -1,5 +1,6 @@
 #It draws rectangle for given coordinates
 class Rectangle
+  attr_reader :color
   def initialize(top_x, top_y, width, height, color)
     @top_x = top_x
     @top_y = top_y

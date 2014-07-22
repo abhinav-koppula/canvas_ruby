@@ -1,11 +1,11 @@
 puts "#{RUBY_PLATFORM}"
 class Canvas < javax.swing.JPanel
   include java.awt.event.MouseListener
-  attr_reader :canvas_objects
+  attr_reader :building_blocks
 
   def initialize
     super
-    @canvas_objects = []
+    @building_blocks = []
     @frame = javax.swing.JFrame.new("Canvas")
     @frame.setDefaultCloseOperation(javax.swing.JFrame::EXIT_ON_CLOSE)
     @frame.setSize(800, 600)
@@ -14,6 +14,8 @@ class Canvas < javax.swing.JPanel
     @frame.add(self)
     @frame.validate
     @frame.repaint
+
+    @observers = []
   end
 
 
@@ -28,17 +30,28 @@ class Canvas < javax.swing.JPanel
   def mouseReleased(javaEvent);end
 
   def mouseClicked(javaEvent)
-    @canvas_objects.each {
-        |canvas_object|
-        if canvas_object.check_click([javaEvent.getX, javaEvent.getY - 20])
-          puts "Clicked on #{canvas_object.text}"
-        end
+    @building_blocks.each {
+        |building_block|
+        building_block.receive_click(javaEvent)
     }
-    puts "click on #{javaEvent.getX} #{javaEvent.getY - 20}"
   end
 
-  def add canvas_object
-    @canvas_objects << canvas_object
+  def mousePressed(javaEvent)
+    @observers.each{|observer| observer.visual_effect(javaEvent)}
+    self.render
+  end
+
+  def mouseReleased(javaEvent)
+    @observers.each{|observer| observer.visual_effect(javaEvent)}
+    self.render
+  end
+
+  def add building_block
+    @building_blocks << building_block
+  end
+
+  def register_observer(building_block)
+    @observers.push(building_block)
   end
 
   def render
@@ -46,8 +59,8 @@ class Canvas < javax.swing.JPanel
   end
 
   def paint graphics
-    @canvas_objects.each{
-      |canvas_object| canvas_object.render(graphics)
+    @building_blocks.each{
+      |building_block| building_block.render(graphics)
     }
   end
 end
