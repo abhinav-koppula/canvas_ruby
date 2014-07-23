@@ -8,6 +8,5 @@ require_relative "application/line"
 require_relative "application/rectangle"
 require_relative "application/button"
 require_relative "application/three_dimension_button"
-require_relative "application/notifier"
 class Application
 end

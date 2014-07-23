@@ -3,7 +3,6 @@
 require_relative '../lib/application'
 
 canvas = Canvas.new
-notifier = Notifier.new
 canvas.add Button.new(100, 100, 100, 50, "click me", Color.red)
 #canvas.add Button.new(300, 105, 300, 100, "hello world", Color.red)
 button3D = ThreeDimensionButton.new(300, 105, 300, 100, "hello world", Color.red)
